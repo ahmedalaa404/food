@@ -16,10 +16,6 @@
   new WOW().init();
 // end plugins 
 
-
-
-
-
 // start navbar  aside in the left of document
 let iconeOpen=$("i.iconeOpen");
 let navs=$(".nav-site");
@@ -53,31 +49,52 @@ $('.nav-links p a[typeShow]').click(
     $(document).click(function (event) {
       event.preventDefault();
     });
-
-    let goals=$(e.target)
-
-
-  }
+    let goals = $(e.target);
+    if(goals.attr("typeShow")=="c")
+    {
+      responsData(``,"categories.php",displayCatigory);
+      console.log(goals.attr("typeShow"))
+    }
+    else if(goals.attr("typeShow")=="a")
+    {
+      responsData("list.php?",`${goals.attr("typeShow")}=list`,displayArea);
+      console.log(goals.attr("typeShow"))
+    }
+    else if(goals.attr("typeShow")=="i")
+    {
+      responsData("list.php?",`${goals.attr("typeShow")}=list`,displayIngredient);
+      }
+    }
 )
-$('.nav-links p a[typeShow="categories"]').click(
-  function()
-  {
-    responsData(`https://www.themealdb.com/api/json/v1/1/categories.php`,displayCatigory);
-  })
-
 
 // respons Data from Api 
 let containerResponse;
 let dataRes;
-async function responsData(type="https://www.themealdb.com/api/json/v1/1/search.php?s",show=Display )
+
+async function responsData(type="search.php?",query="s",show=Display )
 {
-  let SendReq=await fetch(`${type}`);
+  let SendReq=await fetch(`https://www.themealdb.com/api/json/v1/1/${type}${query}`);
         containerResponse = await SendReq.json();
         dataRes=await containerResponse;
+        // console.log(dataRes);
         show(dataRes);
         // Display(dataRes)
 } 
 responsData();
+// async function responsData(type="https://www.themealdb.com/api/json/v1/1/search.php?s",show=Display )
+// {
+//   let SendReq=await fetch(`${type}`);
+//         containerResponse = await SendReq.json();
+//         dataRes=await containerResponse;
+//         // console.log(dataRes);
+//         show(dataRes);
+//         // Display(dataRes)
+// } 
+// responsData();
+
+
+
+
 
 
 // function Display data in the site 
@@ -124,32 +141,6 @@ function displayCatigory(value)
   }
   Rows.html(containerRow);
 }
-
-// function xxs(x)
-// {
-//   console.log(x); 
-// }
-
-
-// function xxs()
-// {
-//   // responsData(type="filter",query=`?c=${x}`)
-//   responsData(type="filter.php",query=`?c=Seafood`)
-//         Display(dataRes.meals);
-//   // https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood
-//   // https://www.themealdb.com/api/json/v1/1/filter.php?i=beef
-// }
-
-
-
-
-
-
-
-
-
-
-
 
 function clickFood(x)
 {
@@ -201,4 +192,37 @@ let containerFood=`<div class="col-lg-4 ">
 }
 
 
+
+function displayArea(value)
+{
+  let concata=``;
+  for(let i=0;i<value.meals.length;i++)
+  {
+    concata+=`<div class="col-lg-3 text-center">
+    <i class="fa-solid fa-city fa-3x my-2"></i>
+    <h4>${value.meals[i].strArea}</h4>
+    </div>
+    `;
+  }
+  Rows.html(concata);
+}
+
+
+function displayIngredient(value)
+{
+  let concata=``;
+  for(let i=0;i<value.meals.length;i++)
+  {
+if(value.meals[i].strDescription!=null)
+{
+    concata+=`<div class="col-lg-3 text-center overflow-hidden" style="height:155px">
+    <i class="fa-solid fa-bowl-food fa-3x text-success"></i>
+    <h4>${value.meals[i].strIngredient}</h4>
+    <p>${value.meals[i].strDescription}</p>
+    </div>
+    `;
+}
+  }
+  Rows.html(concata);
+}
 
