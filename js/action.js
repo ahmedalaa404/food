@@ -53,15 +53,11 @@ $('.nav-links p a[typeShow]').click(
     $(document).click(function (event) {
       event.preventDefault();
     });
+
     let goals=$(e.target)
-    if(goals.attr('typeShow')=='trending')
-    {
-      responsData(`${goals.attr('typeShow')}/all/day`);
-    }
-    else
-    {
-          responsData(`movie/${goals.attr('typeShow')}`);
-    }
+
+      responsData(type=`${goals.attr("typeShow")}`,query="")
+
   }
 )
 
@@ -71,39 +67,22 @@ $('.nav-links p a[typeShow]').click(
 let containerResponse;
 let dataRes;
 
-async function responsData()
+async function responsData(type="search",query="?s",typeArray="meals")
 {
-  let SendReq=await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s`);
+  let SendReq=await fetch(`https://www.themealdb.com/api/json/v1/1/${type}.php${query}`);
+
+    // let SendReq=await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`);
+
         containerResponse = await SendReq.json();
         dataRes=await containerResponse.meals;
+        console.log(dataRes)
         Display(dataRes);
-          // let xxx=new Map(Object.entries(dataRes[24]));
-          // for(let i=1;i<=20;i++)
-          //   {
-          //     if(xxx.get(`strMeasure${i}`)!=0)
-          //           {
-          //     console.log(true);  
-          //           } 
-        
-          //   }
-
-        // for(let i=1;i<=20;i++)
-        //   {
-        //     if(xxx.get(`strMeasure${i}`)!=" ")
-        //     {
-        //       console.log(true);  
-        //     }
-        //     else
-        //     {
-        //       console.log(false)
-        //     }
-        //   }
 } 
 responsData();
 // function Display data in the site 
 let Rows=$('#rowDisplay');
 // show Data in Row
-async function Display(value)
+ function Display(value)
 {
         containerRow ='';
         for(let i=0 ; i<value.length;i++)
@@ -122,9 +101,13 @@ async function Display(value)
         }
         Rows.html(containerRow);
 }
+
+
 function clickFood(x)
 {
   let concat=``;
+  let splitTag=dataRes[x].strTags.split(",");
+  let concatTag=``;
   let xxx=new Map(Object.entries(dataRes[x]));
   for(let i=1;i<=20;i++)
     {
@@ -132,6 +115,10 @@ function clickFood(x)
             {
         concat+=`<i class="alert-success my-2 me-1 p-1 rounded-1">${xxx.get(`strMeasure${i}`)}${xxx.get(`strIngredient${i}`)}</i>`
       } 
+    }
+    for(let i=0;i<splitTag.length;i++)
+    {
+      concatTag+=`<p class="bg-danger mx-1">${splitTag[i]}</p>`
     }
 let containerFood=`<div class="col-lg-4 ">
 <div class="div-imag w-100">
@@ -149,9 +136,11 @@ let containerFood=`<div class="col-lg-4 ">
   ${concat}
             </ul>
 <h3>tags :</h3>
-<p class="bg-danger my-3" style="width:fit-content;">${dataRes[x].strTags}</p>
-<a class="btn btn-danger" href='${dataRes[x].strYoutube}'>strYoutube</a>
-<a  class="btn btn-success" href="${dataRes[x].strSource}" target="_blank">strSource</a>
+<div class="d-flex">
+    ${concatTag}
+</div>
+<a class="btn btn-danger" href='${dataRes[x].strYoutube}'>Youtube</a>
+<a  class="btn btn-success" href="${dataRes[x].strSource}" target="_blank">Source</a>
 </div>`;
 Rows.html(containerFood);
 }
