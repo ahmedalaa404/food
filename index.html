@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food</title>
+  <!-- name of website -->
+  <link href="css/all.min.css" rel="stylesheet">
+  <!--calling file of fontawsome  -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- calling file of css boostrap -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- calling file of style by developer -->
+  <link rel="icon" type="image/x-icon" href="image/pngtree-cola-popcorn-cinema-essentials-png-image_7348538.png">
+  <!-- faviction -->
+  <link rel="stylesheet" href="css/animate.css">
+
+
+
+</head>
+
+<body class="bg-black">
+  <div
+    class="loading bg-dark w-100 vh-100 position-fixed end-0 start-0 top-0 bottom-0 d-flex justify-content-center align-items-center">
+    <span class="loader"></span>
+  </div>
+
+  <div class="nav position-fixed flex-nowrap">
+    <div class="nav-site bg-black py-3">
+
+      <div class="nav-links h-75 ps-4">
+        <p class="mt-4 wow animate__fadeInUpBig" data-wow-delay="0.1s" data-wow-duration="1s"><a href=""
+            typeShow="now_playing" class="text-white text-decoration-none">Now playing</a></p>
+        <p class="mt-4 wow animate__fadeInUpBig" data-wow-delay="0.1s" data-wow-duration="1.3s"><a href=""
+            typeShow="popular" class="text-white text-decoration-none">Popular</a></p>
+        <p class="mt-4 wow animate__fadeInUpBig" data-wow-delay="0.1s" data-wow-duration="1.7s"><a href=""
+            typeShow="top_rated" class="text-white text-decoration-none">Top Rated</a></p>
+        <p class="mt-4 wow animate__fadeInUpBig" data-wow-delay="0.1s" data-wow-duration="1.9s"><a href=""
+            typeShow="trending" class="text-white text-decoration-none">Trending</a></p>
+        <p class="mt-4 wow animate__fadeInUpBig" data-wow-delay="0.1s" data-wow-duration="2s"><a href=""
+            typeShow="upcoming" class="text-white text-decoration-none">Upcoming</a></p>
+        <p class="mt-4 wow animate__fadeInUpBig" data-wow-delay="0.1s" data-wow-duration="2s"><a href=""
+            class="text-white text-decoration-none ">Contact Us</a></p>
+      </div>
+
+      <div class=" d-flex ps-4">
+        <div class="me-3 text-white">
+          <i class="fa-brands fa-facebook-f"></i>
+        </div>
+        <div class="me-3 text-white">
+          <i class="fa-brands fa-twitter"></i>
+        </div>
+        <div class="me-3 text-white">
+          <i class="fa-solid fa-globe"></i>
+        </div>
+      </div>
+      <div class="ps-3 text-muted py-2">
+        <p>Copyright Â© 2019 All Rights Reserved.</p>
+      </div>
+    </div>
+
+
+    <div class="setting d-flex flex-column justify-content-between align-items-center bg-white vh-100 py-2">
+      <div class="logo text-center p-3">
+        <img src="image/logo.png" alt="" style="width: 40px;">
+      </div>
+      <div class="barsClick">
+        <i class="iconeOpen fa-solid fa-bars fs-2"></i>
+      </div>
+      <div class="social ">
+        <div class="mb-2">
+          <i class="fa-solid fa-globe"></i>
+        </div>
+        <div>
+          <i class="fa-solid fa-share-nodes"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <header class="py-5">
+<div class="container">
+  <div class="row w-90">
+    <div class="col-lg-12 text-center text-white py-2 d-flex justify-content-center" >
+      <h1  class="name-site position-relative">popcorn plate</h1>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="inputs">
+        <input id="searchApi" type="text" class="form-control w-100 border border-0 bg-transparent border-bottom border-1 text-white" placeholder="search.....">
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="inputs">
+        <input id="searchPage" type="text" class="form-control w-100 border border-0 bg-transparent border-bottom border-1 text-white" placeholder="search In  Page.....">
+      </div>
+    </div>
+  </div>
+</div>
+</header> -->
+
+  <!-- display data  -->
+
+
+  <div class="showData py-5">
+    <div class="container">
+      <div class="row g-5  w-75 mx-auto text-white" id="rowDisplay">
+
+
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="details text-white py-5 ">
+    <div class="container w-50">
+      <div class="row ">
+
+      </div>
+    </div>
+  </div>
+
+ -->
+
+
+
+
+
+  <script src="js/jqu.js"></script>
+  <script src="js/wow.min.js"></script>
+  <script src="js/action.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+/* loading section  */
+html
+{
+  scroll-behavior: auto !important;
+}
+body
+{
+  font-family: "Segoe UI", Arial, sans-serif;
+  /* font-size: 14px !important; */
+}
+
+.alert-success 
+{
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  width: fit-content;
+  height: fit-content;
+}
+
+*
+{
+  padding: 0;
+  margin: 0;
+}
+.c-pointer
+{
+  cursor: pointer;
+}
+.loading
+{
+  z-index: 10000;
+}
+.loader {
+    width: 175px;
+    height: 80px;
+    display: block;
+    margin:auto;
+    background-image: radial-gradient(circle 25px at 25px 25px, #FFF 100%, transparent 0), radial-gradient(circle 50px at 50px 50px, #FFF 100%, transparent 0), radial-gradient(circle 25px at 25px 25px, #FFF 100%, transparent 0), linear-gradient(#FFF 50px, transparent 0);
+    background-size: 50px 50px, 100px 76px, 50px 50px, 120px 40px;
+    background-position: 0px 30px, 37px 0px, 122px 30px, 25px 40px;
+    background-repeat: no-repeat;
+    position: relative;
+    box-sizing: border-box;
+  }
+  .loader::before {
+    content: '';  
+    left: 60px;
+    bottom: 18px;
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #FF3D00;
+    background-image: radial-gradient(circle 8px at 18px 18px, #FFF 100%, transparent 0), radial-gradient(circle 4px at 18px 0px, #FFF 100%, transparent 0), radial-gradient(circle 4px at 0px 18px, #FFF 100%, transparent 0), radial-gradient(circle 4px at 36px 18px, #FFF 100%, transparent 0), radial-gradient(circle 4px at 18px 36px, #FFF 100%, transparent 0), radial-gradient(circle 4px at 30px 5px, #FFF 100%, transparent 0), radial-gradient(circle 4px at 30px 5px, #FFF 100%, transparent 0), radial-gradient(circle 4px at 30px 30px, #FFF 100%, transparent 0), radial-gradient(circle 4px at 5px 30px, #FFF 100%, transparent 0), radial-gradient(circle 4px at 5px 5px, #FFF 100%, transparent 0);
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    animation: rotationBack 3s linear infinite;
+  }
+  .loader::after {
+    content: '';  
+    left: 94px;
+    bottom: 15px;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #FF3D00;
+    background-image: radial-gradient(circle 5px at 12px 12px, #FFF 100%, transparent 0), radial-gradient(circle 2.5px at 12px 0px, #FFF 100%, transparent 0), radial-gradient(circle 2.5px at 0px 12px, #FFF 100%, transparent 0), radial-gradient(circle 2.5px at 24px 12px, #FFF 100%, transparent 0), radial-gradient(circle 2.5px at 12px 24px, #FFF 100%, transparent 0), radial-gradient(circle 2.5px at 20px 3px, #FFF 100%, transparent 0), radial-gradient(circle 2.5px at 20px 3px, #FFF 100%, transparent 0), radial-gradient(circle 2.5px at 20px 20px, #FFF 100%, transparent 0), radial-gradient(circle 2.5px at 3px 20px, #FFF 100%, transparent 0), radial-gradient(circle 2.5px at 3px 3px, #FFF 100%, transparent 0);
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    animation: rotationBack 4s linear infinite reverse;
+  }
+  
+  @keyframes rotationBack {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+
+  /* end of loading section */
+
+  /* navbar  */
+
+  .nav
+  {
+    z-index: 9999;
+    overflow: hidden;
+  }
+  .nav-site
+  {
+    width: 250px;
+  }
+  .nav-links a ,.nav-site i
+  {
+    transition: 0.2s color;
+    cursor: pointer;
+  }
+  .nav-links a:hover ,.nav-site i:hover
+  {
+    color: #ff655c !important;
+  }
+   header input::placeholder
+   {
+    text-align: center;
+   }
+
+  .setting i 
+  {
+    cursor: pointer;
+    font-size: 120%;
+  }
+  .name-site
+  {
+    padding: 10px 0;
+
+  }
+  .name-site::before
+  {
+    content: "";
+    width: 2px; 
+    height: 0px;
+    position: absolute;
+    top:100%;
+    background-color: rgba(255, 255, 255, 0.695);
+    transition: 1s height, 1s width;
+  }
+  .name-site:hover::before
+  {   
+    height: 1px;
+    width: 100% !important;
+  }
+  /* display data */
+  .cover-image
+  {
+    background-color: rgba(255,255,255,.7);
+    transition: 1s top;
+  }
+  .filem:hover .cover-image
+  {
+    top: 0% !important;
+  }
+
+@media only screen
+and (min-width: 10px) 
+and (max-width: 700px) 
+  { 
+     body
+    {
+      background-color: red!important;
+      font-size: 6px !important;
+    }
+    
+    .nav-site
+    {
+      width: 150px; 
+    }
+
+     header .container
+    {
+
+      display: flex;
+      justify-content: end;
+    } 
+
+    header .container .row .col-sm-12 .inputs
+    {
+      padding-top:20px ;
+    }
+    .showData .row
+    {
+      transform: translateX(20%);
+
+    }
+  }
+  .w-90
+  {
+    width: 90%;
+  }
+  /* .showData .row .col-lg-4
+  {
+    transform: translateX(10%);
+  } */
