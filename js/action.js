@@ -76,7 +76,7 @@ async function responsData(type="search.php?",query="s",show=Display )
   let SendReq=await fetch(`https://www.themealdb.com/api/json/v1/1/${type}${query}`);
         containerResponse = await SendReq.json();
         dataRes=await containerResponse;
-        // console.log(dataRes);
+        console.log(dataRes.meals[0]);
         show(dataRes);
         // Display(dataRes)
 } 
@@ -106,7 +106,7 @@ let Rows=$('#rowDisplay');
         for(let i=0 ; i<value.meals.length;i++)
         {
             containerRow+=`   
-               <div class="overflow-hidden col-lg-3 col-md-6 col-sm-12 wow animate__zoomInDown rounded c-pointer" data-wow-delay="0s" data-wow-duration="1s" onclick='clickFood(${i})'>
+               <div class="overflow-hidden col-lg-3 col-md-6 col-sm-12 wow animate__zoomInDown rounded c-pointer" data-wow-delay="0s" data-wow-duration="1s" onclick='responsData("lookup.php?","i=${value.meals[i].idMeal}",clickFood)'>
             <div class="filem position-relative bg-info ">
               <img src="${value.meals[i].strMealThumb}" alt="" class="w-100">
               <div class="overflow-hidden cover-image position-absolute h-100 w-100 top-100 d-flex justify-content-center align-items-center">
@@ -120,6 +120,7 @@ let Rows=$('#rowDisplay');
         Rows.html(containerRow);
 }
 
+// https://www.themealdb.com/api/json/v1/1/lookup.php?i=53052
 
 function displayCatigory(value)
 {
@@ -127,7 +128,7 @@ function displayCatigory(value)
   for(let i=0 ; i<value.categories.length;i++)
   {
       containerRow+=`   
-         <div class="overflow-hidden col-lg-3 col-md-6 col-sm-12 wow animate__zoomInDown rounded c-pointer" data-wow-delay="0s" data-wow-duration="1s" onclick='xxs()'>
+         <div class="overflow-hidden col-lg-3 col-md-6 col-sm-12 wow animate__zoomInDown rounded c-pointer" data-wow-delay="0s" data-wow-duration="1s" onclick='responsData("filter.php?","c=${value.categories[i].strCategory}",Display)'>
       <div class="filem position-relative">
         <img src="${value.categories[i].strCategoryThumb}" alt="" class="w-100">
         <div class="overflow-hidden cover-image position-absolute h-100 w-100 top-100 d-flex justify-content-center align-items-center">
@@ -142,41 +143,43 @@ function displayCatigory(value)
   Rows.html(containerRow);
 }
 
-function clickFood(x)
+function clickFood(value)
 {
   let concat=``;
   let concatTag=``;
   // console.log(dataRes.meals[x])
   let splitTag;
-if(dataRes.meals[x].strTags!=undefined)
+if(value.meals[0].strTags!=undefined)
 {
-     splitTag=dataRes.meals[x].strTags.split(",");
+     splitTag=value.meals[0].strTags.split(",");
      for(let i=0;i<splitTag.length;i++)
      {
        concatTag+=`<p class="bg-danger mx-1">${splitTag[i]}</p>`
      }
 }
 
-  let xxx=new Map(Object.entries(dataRes.meals[x]));
+  // let xxx=new Map(Object.entries(value.meals));
   for(let i=1;i<=20;i++)
     {
+      console.log(value.meals[0].strMeasure`${i}`);
       if(xxx.get(`strMeasure${i}`)!=0)
             {
+
         concat+=`<i class="alert-success my-2 me-1 p-1 rounded-1">${xxx.get(`strMeasure${i}`)}${xxx.get(`strIngredient${i}`)}</i>`
       } 
     }
 
 let containerFood=`<div class="col-lg-4 ">
 <div class="div-imag w-100">
-  <img src="${dataRes.meals[x].strMealThumb}" alt="" class="w-100">
-  <h2>${dataRes.meals[x].strMeal}</h2>
+  <img src="${value.meals[0].strMealThumb}" alt="" class="w-100">
+  <h2>${value.meals[0].strMeal}</h2>
 </div>
 </div>
 <div class="col-lg-8">
 <h4>Instructions</h4>
-<p>${dataRes.meals[x].strInstructions}</p>
-<p> <span class="">Area:</span>${dataRes.meals[x].strArea}</p>
-<p> <span class="">catogery:</span>${dataRes.meals[x].strCategory}</p>
+<p>${value.meals[0].strInstructions}</p>
+<p> <span class="">Area:</span>${value.meals[0].strArea}</p>
+<p> <span class="">catogery:</span>${value.meals[0].strCategory}</p>
 <h3>Recipes :</h3>
 <ul class="d-flex list-unstyled flex-wrap w-100">
   ${concat}
@@ -185,8 +188,8 @@ let containerFood=`<div class="col-lg-4 ">
 <div class="d-flex">
     ${concatTag}
 </div>
-<a class="btn btn-danger" href='${dataRes.meals[x].strYoutube}'>Youtube</a>
-<a  class="btn btn-success" href="${dataRes.meals[x].strSource}" target="_blank">Source</a>
+<a class="btn btn-danger" href='${value.meals[0].strYoutube}'>Youtube</a>
+<a  class="btn btn-success" href="${value.meals[0].strSource}" target="_blank">Source</a>
 </div>`;
     Rows.html(containerFood);
 }
@@ -225,4 +228,3 @@ if(value.meals[i].strDescription!=null)
   }
   Rows.html(concata);
 }
-
