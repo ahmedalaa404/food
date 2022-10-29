@@ -77,7 +77,16 @@ async function responsData()
         containerResponse = await SendReq.json();
         dataRes=await containerResponse.meals;
         Display(dataRes);
-          console.log(dataRes)
+          // let xxx=new Map(Object.entries(dataRes[24]));
+          // for(let i=1;i<=20;i++)
+          //   {
+          //     if(xxx.get(`strMeasure${i}`)!=0)
+          //           {
+          //     console.log(true);  
+          //           } 
+        
+          //   }
+
         // for(let i=1;i<=20;i++)
         //   {
         //     if(xxx.get(`strMeasure${i}`)!=" ")
@@ -88,23 +97,10 @@ async function responsData()
         //     {
         //       console.log(false)
         //     }
-      
         //   }
-
-
-
 } 
 responsData();
-
-
-
-
-
-
-
-
 // function Display data in the site 
-
 let Rows=$('#rowDisplay');
 // show Data in Row
 async function Display(value)
@@ -126,23 +122,17 @@ async function Display(value)
         }
         Rows.html(containerRow);
 }
-
-
 function clickFood(x)
 {
   let concat=``;
   let xxx=new Map(Object.entries(dataRes[x]));
   for(let i=1;i<=20;i++)
     {
-      if(xxx.get(`strMeasure${i}`)!=" ")
+      if(xxx.get(`strMeasure${i}`)!=0)
             {
         concat+=`<i class="alert-success my-2 me-1 p-1 rounded-1">${xxx.get(`strMeasure${i}`)}${xxx.get(`strIngredient${i}`)}</i>`
       } 
-
     }
-
-
-
 let containerFood=`<div class="col-lg-4 ">
 <div class="div-imag w-100">
   <img src="${dataRes[x].strMealThumb}" alt="" class="w-100">
@@ -158,16 +148,10 @@ let containerFood=`<div class="col-lg-4 ">
 <ul class="d-flex list-unstyled flex-wrap w-100">
   ${concat}
             </ul>
-
-
-
-
 <h3>tags :</h3>
 <p class="bg-danger my-3" style="width:fit-content;">${dataRes[x].strTags}</p>
 <a class="btn btn-danger" href='${dataRes[x].strYoutube}'>strYoutube</a>
 <a  class="btn btn-success" href="${dataRes[x].strSource}" target="_blank">strSource</a>
-
-
 </div>`;
 Rows.html(containerFood);
 }
