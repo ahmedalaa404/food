@@ -53,7 +53,7 @@ $('.nav-links p a[typeShow]').click(
     if(goals.attr("typeShow")=="c")
     {
       responsData(``,"categories.php",displayCatigory);
-      console.log(goals.attr("typeShow"))
+      console.log(responsData)
     }
     else if(goals.attr("typeShow")=="a")
     {
@@ -76,7 +76,7 @@ async function responsData(type="search.php?",query="s",show=Display )
   let SendReq=await fetch(`https://www.themealdb.com/api/json/v1/1/${type}${query}`);
         containerResponse = await SendReq.json();
         dataRes=await containerResponse;
-        console.log(dataRes.meals[0]);
+        // console.log(dataRes.meals[0]);
         show(dataRes);
         // Display(dataRes)
 } 
