@@ -56,44 +56,45 @@ $('.nav-links p a[typeShow]').click(
 
     let goals=$(e.target)
 
-      responsData(type=`${goals.attr("typeShow")}`,query="")
 
   }
 )
-
+$('.nav-links p a[typeShow="categories"]').click(
+  function()
+  {
+    responsData(`https://www.themealdb.com/api/json/v1/1/categories.php`,displayCatigory);
+  })
 
 
 // respons Data from Api 
 let containerResponse;
 let dataRes;
-
-async function responsData(type="search",query="?s",typeArray="meals")
+async function responsData(type="https://www.themealdb.com/api/json/v1/1/search.php?s",show=Display )
 {
-  let SendReq=await fetch(`https://www.themealdb.com/api/json/v1/1/${type}.php${query}`);
-
-    // let SendReq=await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`);
-
+  let SendReq=await fetch(`${type}`);
         containerResponse = await SendReq.json();
-        dataRes=await containerResponse.meals;
-        console.log(dataRes)
-        Display(dataRes);
+        dataRes=await containerResponse;
+        show(dataRes);
+        // Display(dataRes)
 } 
 responsData();
+
+
 // function Display data in the site 
 let Rows=$('#rowDisplay');
 // show Data in Row
  function Display(value)
 {
         containerRow ='';
-        for(let i=0 ; i<value.length;i++)
+        for(let i=0 ; i<value.meals.length;i++)
         {
             containerRow+=`   
                <div class="overflow-hidden col-lg-3 col-md-6 col-sm-12 wow animate__zoomInDown rounded c-pointer" data-wow-delay="0s" data-wow-duration="1s" onclick='clickFood(${i})'>
             <div class="filem position-relative bg-info ">
-              <img src="${value[i].strMealThumb}" alt="" class="w-100">
+              <img src="${value.meals[i].strMealThumb}" alt="" class="w-100">
               <div class="overflow-hidden cover-image position-absolute h-100 w-100 top-100 d-flex justify-content-center align-items-center">
                 <div class="text-center">
-                  <h6 class="pt-sm-4 mb-0 py-lg-3">${value[i].strMeal}</h6>
+                  <h6 class="pt-sm-4 mb-0 py-lg-3">${value.meals[i].strMeal}</h6>
                 </div>
               </div>
             </div>
@@ -103,12 +104,69 @@ let Rows=$('#rowDisplay');
 }
 
 
+function displayCatigory(value)
+{
+  containerRow ='';
+  for(let i=0 ; i<value.categories.length;i++)
+  {
+      containerRow+=`   
+         <div class="overflow-hidden col-lg-3 col-md-6 col-sm-12 wow animate__zoomInDown rounded c-pointer" data-wow-delay="0s" data-wow-duration="1s" onclick='xxs()'>
+      <div class="filem position-relative">
+        <img src="${value.categories[i].strCategoryThumb}" alt="" class="w-100">
+        <div class="overflow-hidden cover-image position-absolute h-100 w-100 top-100 d-flex justify-content-center align-items-center">
+          <div class="text-center text-black">
+            <h6 class="pt-sm-4 mb-0 py-lg-3">${value.categories[i].strCategory}</h6>
+            <p style="font-size: 10px !important;">${value.categories[i].strCategoryDescription}</p>
+          </div>
+        </div>
+      </div>
+    </div>`
+  }
+  Rows.html(containerRow);
+}
+
+// function xxs(x)
+// {
+//   console.log(x); 
+// }
+
+
+// function xxs()
+// {
+//   // responsData(type="filter",query=`?c=${x}`)
+//   responsData(type="filter.php",query=`?c=Seafood`)
+//         Display(dataRes.meals);
+//   // https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood
+//   // https://www.themealdb.com/api/json/v1/1/filter.php?i=beef
+// }
+
+
+
+
+
+
+
+
+
+
+
+
 function clickFood(x)
 {
   let concat=``;
-  let splitTag=dataRes[x].strTags.split(",");
   let concatTag=``;
-  let xxx=new Map(Object.entries(dataRes[x]));
+  // console.log(dataRes.meals[x])
+  let splitTag;
+if(dataRes.meals[x].strTags!=undefined)
+{
+     splitTag=dataRes.meals[x].strTags.split(",");
+     for(let i=0;i<splitTag.length;i++)
+     {
+       concatTag+=`<p class="bg-danger mx-1">${splitTag[i]}</p>`
+     }
+}
+
+  let xxx=new Map(Object.entries(dataRes.meals[x]));
   for(let i=1;i<=20;i++)
     {
       if(xxx.get(`strMeasure${i}`)!=0)
@@ -116,21 +174,18 @@ function clickFood(x)
         concat+=`<i class="alert-success my-2 me-1 p-1 rounded-1">${xxx.get(`strMeasure${i}`)}${xxx.get(`strIngredient${i}`)}</i>`
       } 
     }
-    for(let i=0;i<splitTag.length;i++)
-    {
-      concatTag+=`<p class="bg-danger mx-1">${splitTag[i]}</p>`
-    }
+
 let containerFood=`<div class="col-lg-4 ">
 <div class="div-imag w-100">
-  <img src="${dataRes[x].strMealThumb}" alt="" class="w-100">
-  <h2>${dataRes[x].strMeal}</h2>
+  <img src="${dataRes.meals[x].strMealThumb}" alt="" class="w-100">
+  <h2>${dataRes.meals[x].strMeal}</h2>
 </div>
 </div>
 <div class="col-lg-8">
 <h4>Instructions</h4>
-<p>${dataRes[x].strInstructions}</p>
-<p> <span class="">Area:</span>${dataRes[x].strArea}</p>
-<p> <span class="">catogery:</span>${dataRes[x].strCategory}</p>
+<p>${dataRes.meals[x].strInstructions}</p>
+<p> <span class="">Area:</span>${dataRes.meals[x].strArea}</p>
+<p> <span class="">catogery:</span>${dataRes.meals[x].strCategory}</p>
 <h3>Recipes :</h3>
 <ul class="d-flex list-unstyled flex-wrap w-100">
   ${concat}
@@ -139,10 +194,10 @@ let containerFood=`<div class="col-lg-4 ">
 <div class="d-flex">
     ${concatTag}
 </div>
-<a class="btn btn-danger" href='${dataRes[x].strYoutube}'>Youtube</a>
-<a  class="btn btn-success" href="${dataRes[x].strSource}" target="_blank">Source</a>
+<a class="btn btn-danger" href='${dataRes.meals[x].strYoutube}'>Youtube</a>
+<a  class="btn btn-success" href="${dataRes.meals[x].strSource}" target="_blank">Source</a>
 </div>`;
-Rows.html(containerFood);
+    Rows.html(containerFood);
 }
 
 
