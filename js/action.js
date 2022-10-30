@@ -224,8 +224,8 @@ let concat=
 </div>
 
 <div class="col-lg-6">
-<input type"email" class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid" placeholder="Enter youer E-mail" >
-<input class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid my-4" placeholder="Enter youer age" >
+<input type"email" class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid" placeholder="Enter youer E-mail" oninput=validation(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,this)>
+<input class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid my-4" placeholder="Enter youer age" oninput=validation(/^([1-9]{1}[0-9]{1}|100)$/,this)>
 <input type="password" class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid" placeholder="Enter youer Re-Password"" >
 </div>
 `
@@ -251,3 +251,4 @@ function validation(reg,valuee)
 }
 
 
+// ^([1-9]{1}[0-9]{1}||100)$
