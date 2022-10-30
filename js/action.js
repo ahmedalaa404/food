@@ -1,7 +1,5 @@
 // to prevent the reload in the site when u click any link
 
-
-
 // loading screen and doc ready
   $(document).ready(
       function ()
@@ -66,7 +64,6 @@ $('.nav-links p a[typeShow]').click(
       }
     }
 )
-
 // respons Data from Api 
 let containerResponse;
 let dataRes;
@@ -76,27 +73,11 @@ async function responsData(type="search.php?",query="s",show=Display )
   let SendReq=await fetch(`https://www.themealdb.com/api/json/v1/1/${type}${query}`);
         containerResponse = await SendReq.json();
         dataRes=await containerResponse;
-        // console.log(dataRes.meals[0]);
+        console.log(dataRes)
         show(dataRes);
         // Display(dataRes)
 } 
 responsData();
-// async function responsData(type="https://www.themealdb.com/api/json/v1/1/search.php?s",show=Display )
-// {
-//   let SendReq=await fetch(`${type}`);
-//         containerResponse = await SendReq.json();
-//         dataRes=await containerResponse;
-//         // console.log(dataRes);
-//         show(dataRes);
-//         // Display(dataRes)
-// } 
-// responsData();
-
-
-
-
-
-
 // function Display data in the site 
 let Rows=$('#rowDisplay');
 // show Data in Row
@@ -106,7 +87,7 @@ let Rows=$('#rowDisplay');
         for(let i=0 ; i<value.meals.length;i++)
         {
             containerRow+=`   
-               <div class="overflow-hidden col-lg-3 col-md-6 col-sm-12 wow animate__zoomInDown rounded c-pointer" data-wow-delay="0s" data-wow-duration="1s" onclick='responsData("lookup.php?","i=${value.meals[i].idMeal}",clickFood)'>
+               <div class="overflow-hidden col-lg-3 col-md-6 col-sm-12 wow animate__zoomInDown rounded c-pointer" data-wow-delay="0s" data-wow-duration="1s" onclick="responsData('lookup.php?','i=${value.meals[i].idMeal}',clickFood )">
             <div class="filem position-relative bg-info ">
               <img src="${value.meals[i].strMealThumb}" alt="" class="w-100">
               <div class="overflow-hidden cover-image position-absolute h-100 w-100 top-100 d-flex justify-content-center align-items-center">
@@ -134,7 +115,7 @@ function displayCatigory(value)
         <div class="overflow-hidden cover-image position-absolute h-100 w-100 top-100 d-flex justify-content-center align-items-center">
           <div class="text-center text-black">
             <h6 class="pt-sm-4 mb-0 py-lg-3">${value.categories[i].strCategory}</h6>
-            <p style="font-size: 10px !important;">${value.categories[i].strCategoryDescription}</p>
+            <p style="font-size: 10px !important;height: 76px;line-height: 1;">${value.categories[i].strCategoryDescription}</p>
           </div>
         </div>
       </div>
@@ -142,7 +123,6 @@ function displayCatigory(value)
   }
   Rows.html(containerRow);
 }
-
 function clickFood(value)
 {
   let concat=``;
@@ -157,18 +137,14 @@ if(value.meals[0].strTags!=undefined)
        concatTag+=`<p class="bg-danger mx-1">${splitTag[i]}</p>`
      }
 }
-
-  // let xxx=new Map(Object.entries(value.meals));
-  for(let i=1;i<=20;i++)
-    {
-      console.log(value.meals[0].strMeasure`${i}`);
-      if(xxx.get(`strMeasure${i}`)!=0)
-            {
-
-        concat+=`<i class="alert-success my-2 me-1 p-1 rounded-1">${xxx.get(`strMeasure${i}`)}${xxx.get(`strIngredient${i}`)}</i>`
-      } 
-    }
-
+let xxx=new Map(Object.entries(dataRes.meals[0]));
+for(let i=1;i<=20;i++)
+  {
+    if(xxx.get(`strMeasure${i}`)!=0)
+          {
+      concat+=`<i class="alert-success my-2 me-1 p-1 rounded-1">${xxx.get(`strMeasure${i}`)}${xxx.get(`strIngredient${i}`)}</i>`
+    } 
+  }
 let containerFood=`<div class="col-lg-4 ">
 <div class="div-imag w-100">
   <img src="${value.meals[0].strMealThumb}" alt="" class="w-100">
@@ -201,7 +177,7 @@ function displayArea(value)
   let concata=``;
   for(let i=0;i<value.meals.length;i++)
   {
-    concata+=`<div class="col-lg-3 text-center">
+    concata+=`<div class="col-lg-3 text-center c-pointer"  onclick="responsData('filter.php?','a=${value.meals[i].strArea}',Display )">
     <i class="fa-solid fa-city fa-3x my-2"></i>
     <h4>${value.meals[i].strArea}</h4>
     </div>
@@ -218,7 +194,7 @@ function displayIngredient(value)
   {
 if(value.meals[i].strDescription!=null)
 {
-    concata+=`<div class="col-lg-3 text-center overflow-hidden" style="height:155px">
+    concata+=`<div class="col-lg-3 text-center overflow-hidden c-pointer" style="height:155px" onclick="responsData('filter.php?','i=${value.meals[i].strIngredient}',Display )">
     <i class="fa-solid fa-bowl-food fa-3x text-success"></i>
     <h4>${value.meals[i].strIngredient}</h4>
     <p>${value.meals[i].strDescription}</p>
