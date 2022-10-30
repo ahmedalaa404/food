@@ -62,7 +62,12 @@ $('.nav-links p a[typeShow]').click(
     else if(goals.attr("typeShow")=="i")
     {
       responsData("list.php?",`${goals.attr("typeShow")}=list`,displayIngredient);
-      }
+    }
+    else if(goals.attr("typeShow")=="ContactUs")
+    {
+      contact();
+    }
+
     }
 )
 // respons Data from Api 
@@ -204,3 +209,45 @@ if(value.meals[i].strType!=null)
   }
   Rows.html(concata);
 }
+
+
+
+function contact()
+{
+let concat=
+`
+<h2 class="my-5 text-center">ContacUs...</h2>
+<div class="col-lg-6">
+<input class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid" placeholder="Enter youer Name" oninput=validation(/^[a-zA-Z]{3,20}/,this)>
+<input class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid my-4" placeholder="Enter youer Number Phone" oninput=validation(/^(01)[0-9]{9}$/,this) >
+<input type="password" class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid" placeholder="Enter youer Password" >
+</div>
+
+<div class="col-lg-6">
+<input type"email" class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid" placeholder="Enter youer E-mail" >
+<input class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid my-4" placeholder="Enter youer age" >
+<input type="password" class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid" placeholder="Enter youer Re-Password"" >
+</div>
+`
+Rows.html(concat);
+}
+
+function validation(reg,valuee)
+{
+  if(reg.test(valuee.value)==true)
+  {
+    valuee.classList.replace("is-invalid","is-valid")
+    valuee.classList.replace("border-danger","border-success")
+  }
+  else
+  {
+    if(valuee.classList.contains("is-valid")==true)
+    {
+      valuee.classList.replace("is-valid","is-invalid")
+      valuee.classList.replace("border-success","border-danger")
+    }
+  }
+    
+}
+
+

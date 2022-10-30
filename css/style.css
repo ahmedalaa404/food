@@ -8,6 +8,10 @@ body
   font-family: "Segoe UI", Arial, sans-serif;
   /* font-size: 14px !important; */
 }
+.form-control::placeholder
+{
+  text-align: center;
+}
 
 .alert-success 
 {
