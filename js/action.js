@@ -13,7 +13,6 @@
 // plugins Jquery
   new WOW().init();
 // end plugins 
-
 // start navbar  aside in the left of document
 let iconeOpen=$("i.iconeOpen");
 let navs=$(".nav-site");
@@ -38,6 +37,8 @@ iconeOpen.click(
         }
     }
 )
+
+
 // end nav of aside 
 
 // function of click in any links of nav
@@ -100,8 +101,6 @@ let Rows=$('#rowDisplay');
         }
         Rows.html(containerRow);
 }
-
-// https://www.themealdb.com/api/json/v1/1/lookup.php?i=53052
 
 function displayCatigory(value)
 {
@@ -187,12 +186,13 @@ function displayArea(value)
 }
 
 
+
 function displayIngredient(value)
 {
   let concata=``;
   for(let i=0;i<value.meals.length;i++)
   {
-if(value.meals[i].strDescription!=null)
+if(value.meals[i].strType!=null)
 {
     concata+=`<div class="col-lg-3 text-center overflow-hidden c-pointer" style="height:155px" onclick="responsData('filter.php?','i=${value.meals[i].strIngredient}',Display )">
     <i class="fa-solid fa-bowl-food fa-3x text-success"></i>
