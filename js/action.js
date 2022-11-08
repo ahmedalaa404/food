@@ -266,38 +266,51 @@ let messageAge=document.querySelector('.inpAge+div');
 let inpRePassword=document.querySelector('.inpRePassword');
 let messageRepassowrd=document.querySelector('.inpRePassword+div');
 
+let allInputes=document.querySelectorAll('.contact input')
 let btnSend=document.querySelector('.send');
-
-console.log(inpName,messageName,inpPhone,messagePhone)
-
+console.log(btnSend)
 
 inpName.addEventListener('input',function()
 {
-  regux(/^[a-zA-z]{1,20}/,this,messageName)
+  regux(/^[a-zA-z]{1,20}/,this,messageName);
+  checkbtn();
 })
 
 
 inpPhone.addEventListener('input',function()
 {
-  regux(/^(01)[0-9]{9}$/,this,messagePhone)
+  regux(/^(01)[0-9]{9}$/,this,messagePhone);
+  checkbtn();
 })
 
 
 inpEmail.addEventListener('input',function()
 {
-  regux(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,this,messageEmail)
+  regux(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,this,messageEmail);
+  checkbtn();
 })
 
 
 inpPassword.addEventListener('input',function()
 {
-  regux(/^[a-z0-9]{8,20}$/,this,messagePassword)
+  regux(/^[a-z0-9]{8,20}$/,this,messagePassword);
+  if(this.value==inpRePassword.value)
+  {
+    Validsuccess(inpRePassword,messageRepassowrd);
+  }
+  else
+  {
+    Validwrong(inpRePassword,messageRepassowrd);
+  }
+  checkbtn();
+  
 })
 
 
 inpAge.addEventListener('input',function()
 {
-  regux(/^([1-9]{1}[0-9]{1}|100)$/,this,messageAge)
+  regux(/^([1-9]{1}[0-9]{1}|100)$/,this,messageAge);
+  checkbtn();
 })
 
 inpRePassword.addEventListener('input',function()
@@ -308,10 +321,30 @@ inpRePassword.addEventListener('input',function()
   }
   else
   {
-    checkValid(this,messageRepassowrd);
+    Validwrong(this,messageRepassowrd);
   }
+  checkbtn();
     
 })
+
+function checkbtn()
+{
+  for(let i=0;i<allInputes.length;i++)
+  {
+    let cont=0;
+    allInputes[i].addEventListener('input',function()
+    {
+      if(allInputes[i].classList.contains('is-valid')==true)
+      {
+        cont++;
+      }
+      if(cont==allInputes.length)
+      {
+        btnSend.disabled=false;
+      }
+    })
+  }
+}
 
 }
 
@@ -381,3 +414,11 @@ function regux(value,ele,message)
     Validwrong(ele,message);
   }
 }
+
+
+
+
+
+
+
+
