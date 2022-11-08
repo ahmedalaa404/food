@@ -6,7 +6,6 @@ html
 body
 {
   font-family: "Segoe UI", Arial, sans-serif;
-  /* font-size: 14px !important; */
 }
 .form-control::placeholder
 {
@@ -152,17 +151,24 @@ body
 and (min-width: 10px) 
 and (max-width: 700px) 
   { 
-     body
+
+    .contact
+    {
+      margin-left: auto;
+    }
+
+    .contact input
+    {
+      margin-top: 10px;
+    }
+
+
+      body
     {
       background-color: red!important;
       font-size: 6px !important;
-    }
+    } 
     
-    .nav-site
-    {
-      width: 150px; 
-    }
-
      header .container
     {
 
@@ -178,13 +184,27 @@ and (max-width: 700px)
     {
       transform: translateX(20%);
 
+    } 
+    .w-90
+    {
+      width: 90%;
+    } 
+    .showData .row .col-lg-4
+    {
+      transform: translateX(10%);
     }
+
   }
-  .w-90
-  {
-    width: 90%;
-  }
-  /* .showData .row .col-lg-4
-  {
-    transform: translateX(10%);
-  } */
+
+
+  @media only screen
+  and (min-width: 701px) 
+  and (max-width: 800px) 
+     {
+      .contact
+      {
+        margin: auto;
+      }
+     }
+
+ 

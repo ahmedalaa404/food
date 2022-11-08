@@ -1,4 +1,8 @@
+let Rows=$('#rowDisplay');
+
 // to prevent the reload in the site when u click any link
+
+
 
 // loading screen and doc ready
   $(document).ready(
@@ -13,6 +17,7 @@
 // plugins Jquery
   new WOW().init();
 // end plugins 
+
 // start navbar  aside in the left of document
 let iconeOpen=$("i.iconeOpen");
 let navs=$(".nav-site");
@@ -52,20 +57,21 @@ $('.nav-links p a[typeShow]').click(
     if(goals.attr("typeShow")=="c")
     {
       responsData(``,"categories.php",displayCatigory);
-      console.log(responsData)
+
     }
     else if(goals.attr("typeShow")=="a")
     {
       responsData("list.php?",`${goals.attr("typeShow")}=list`,displayArea);
-      console.log(goals.attr("typeShow"))
     }
     else if(goals.attr("typeShow")=="i")
     {
       responsData("list.php?",`${goals.attr("typeShow")}=list`,displayIngredient);
     }
+
+
     else if(goals.attr("typeShow")=="ContactUs")
     {
-      contact();
+      contact()
     }
 
     }
@@ -79,14 +85,15 @@ async function responsData(type="search.php?",query="s",show=Display )
   let SendReq=await fetch(`https://www.themealdb.com/api/json/v1/1/${type}${query}`);
         containerResponse = await SendReq.json();
         dataRes=await containerResponse;
-        console.log(dataRes)
         show(dataRes);
         // Display(dataRes)
 } 
 responsData();
 // function Display data in the site 
-let Rows=$('#rowDisplay');
+
 // show Data in Row
+
+
  function Display(value)
 {
         containerRow ='';
@@ -94,7 +101,7 @@ let Rows=$('#rowDisplay');
         {
             containerRow+=`   
                <div class="overflow-hidden col-lg-3 col-md-6 col-sm-12 wow animate__zoomInDown rounded c-pointer" data-wow-delay="0s" data-wow-duration="1s" onclick="responsData('lookup.php?','i=${value.meals[i].idMeal}',clickFood )">
-            <div class="filem position-relative bg-info ">
+            <div class="filem position-relative">
               <img src="${value.meals[i].strMealThumb}" alt="" class="w-100">
               <div class="overflow-hidden cover-image position-absolute h-100 w-100 top-100 d-flex justify-content-center align-items-center">
                 <div class="text-center">
@@ -106,6 +113,12 @@ let Rows=$('#rowDisplay');
         }
         Rows.html(containerRow);
 }
+
+
+
+
+
+
 
 function displayCatigory(value)
 {
@@ -127,6 +140,9 @@ function displayCatigory(value)
   }
   Rows.html(containerRow);
 }
+
+
+
 function clickFood(value)
 {
   let concat=``;
@@ -138,41 +154,44 @@ if(value.meals[0].strTags!=undefined)
      splitTag=value.meals[0].strTags.split(",");
      for(let i=0;i<splitTag.length;i++)
      {
-       concatTag+=`<p class="bg-danger mx-1">${splitTag[i]}</p>`
+       concatTag+=`<p class="bg-danger mx-1 p-1 rounded-1">${splitTag[i]}</p>`
      }
 }
-let xxx=new Map(Object.entries(dataRes.meals[0]));
-for(let i=1;i<=20;i++)
-  {
-    if(xxx.get(`strMeasure${i}`)!=0)
+        let xxx=new Map(Object.entries(dataRes.meals[0]));
+        for(let i=1;i<=20;i++)
           {
-      concat+=`<i class="alert-success my-2 me-1 p-1 rounded-1">${xxx.get(`strMeasure${i}`)}${xxx.get(`strIngredient${i}`)}</i>`
-    } 
-  }
-let containerFood=`<div class="col-lg-4 ">
-<div class="div-imag w-100">
-  <img src="${value.meals[0].strMealThumb}" alt="" class="w-100">
-  <h2>${value.meals[0].strMeal}</h2>
-</div>
-</div>
-<div class="col-lg-8">
-<h4>Instructions</h4>
-<p>${value.meals[0].strInstructions}</p>
-<p> <span class="">Area:</span>${value.meals[0].strArea}</p>
-<p> <span class="">catogery:</span>${value.meals[0].strCategory}</p>
-<h3>Recipes :</h3>
-<ul class="d-flex list-unstyled flex-wrap w-100">
-  ${concat}
-            </ul>
-<h3>tags :</h3>
-<div class="d-flex">
-    ${concatTag}
-</div>
-<a class="btn btn-danger" href='${value.meals[0].strYoutube}'>Youtube</a>
-<a  class="btn btn-success" href="${value.meals[0].strSource}" target="_blank">Source</a>
-</div>`;
-    Rows.html(containerFood);
+            if(xxx.get(`strMeasure${i}`)!=0)
+                  {
+              concat+=`<i class="alert-success my-2 me-1 p-1 rounded-1">${xxx.get(`strMeasure${i}`)}${xxx.get(`strIngredient${i}`)}</i>`
+            } 
+          }
+        let containerFood=`<div class="col-lg-4 ">
+        <div class="div-imag w-100">
+          <img src="${value.meals[0].strMealThumb}" alt="" class="w-100">
+          <h2>${value.meals[0].strMeal}</h2>
+        </div>
+        </div>
+        <div class="col-lg-8">
+        <h4>Instructions</h4>
+        <p>${value.meals[0].strInstructions}</p>
+        <p> <span class="">Area:</span>${value.meals[0].strArea}</p>
+        <p> <span class="">catogery:</span>${value.meals[0].strCategory}</p>
+        <h3>Recipes :</h3>
+        <ul class="d-flex list-unstyled flex-wrap w-100">
+          ${concat}
+                    </ul>
+        <h3>tags :</h3>
+        <div class="d-flex">
+            ${concatTag}
+        </div>
+        <a class="btn btn-danger" href='${value.meals[0].strYoutube}'target="_blank">Youtube</a>
+        <a  class="btn btn-success" href="${value.meals[0].strSource}" target="_blank">Source</a>
+        </div>`;
+  Rows.html(containerFood);
 }
+
+
+
 
 
 
@@ -189,8 +208,6 @@ function displayArea(value)
   }
   Rows.html(concata);
 }
-
-
 
 function displayIngredient(value)
 {
@@ -212,43 +229,155 @@ if(value.meals[i].strType!=null)
 
 
 
+
+// let contacts = document.querySelector('.contact');
+// function displayContact()
+// {
+//   contacts.classList.replace('d-none','d-block') 
+//   Rows.fadeOut(1000);
+// }
+// function hiddenContact()
+// {
+//   contacts.classList.replace('d-block','d-none') 
+//   Rows.slideUp(1000);
+// }
+
+
+
+
+
 function contact()
-{
-let concat=
-`
-<h2 class="my-5 text-center">ContacUs...</h2>
-<div class="col-lg-6">
-<input class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid" placeholder="Enter youer Name" oninput=validation(/^[a-zA-Z]{3,20}/,this)>
-<input class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid my-4" placeholder="Enter youer Number Phone" oninput=validation(/^(01)[0-9]{9}$/,this) >
-<input type="password" class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid" placeholder="Enter youer Password" >
-</div>
+{    
+let inpName=document.querySelector('.inpName');
+let messageName=document.querySelector('.inpName+div');
 
-<div class="col-lg-6">
-<input type"email" class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid" placeholder="Enter youer E-mail" oninput=validation(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,this)>
-<input class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid my-4" placeholder="Enter youer age" oninput=validation(/^([1-9]{1}[0-9]{1}|100)$/,this)>
-<input type="password" class="form-control bg-transparent border-top-0 border-end-0 border-start-0 border-danger text-white is-invalid" placeholder="Enter youer Re-Password"" >
-</div>
-`
-Rows.html(concat);
-}
+let inpPhone=document.querySelector('.inpPhone');
+let messagePhone=document.querySelector('.inpPhone+div');
 
-function validation(reg,valuee)
+let inpEmail=document.querySelector('.inpEmail');
+let messageEmail=document.querySelector('.inpEmail+div');
+
+let inpPassword=document.querySelector('.inpPassword');
+let messagePassword=document.querySelector('.inpPassword+div');
+
+let inpAge=document.querySelector('.inpAge');
+let messageAge=document.querySelector('.inpAge+div');
+
+let inpRePassword=document.querySelector('.inpRePassword');
+let messageRepassowrd=document.querySelector('.inpRePassword+div');
+
+let btnSend=document.querySelector('.send');
+
+console.log(inpName,messageName,inpPhone,messagePhone)
+
+
+inpName.addEventListener('input',function()
 {
-  if(reg.test(valuee.value)==true)
+  regux(/^[a-zA-z]{1,20}/,this,messageName)
+})
+
+
+inpPhone.addEventListener('input',function()
+{
+  regux(/^(01)[0-9]{9}$/,this,messagePhone)
+})
+
+
+inpEmail.addEventListener('input',function()
+{
+  regux(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,this,messageEmail)
+})
+
+
+inpPassword.addEventListener('input',function()
+{
+  regux(/^[a-z0-9]{8,20}$/,this,messagePassword)
+})
+
+
+inpAge.addEventListener('input',function()
+{
+  regux(/^([1-9]{1}[0-9]{1}|100)$/,this,messageAge)
+})
+
+inpRePassword.addEventListener('input',function()
+{
+  if(this.value==inpPassword.value)
   {
-    valuee.classList.replace("is-invalid","is-valid")
-    valuee.classList.replace("border-danger","border-success")
+    Validsuccess(this,messageRepassowrd);
   }
   else
   {
-    if(valuee.classList.contains("is-valid")==true)
-    {
-      valuee.classList.replace("is-valid","is-invalid")
-      valuee.classList.replace("border-success","border-danger")
-    }
+    checkValid(this,messageRepassowrd);
   }
     
+})
+
+}
+
+function Validsuccess(ele,message)
+{
+  if(ele.classList.contains('is-invalid')==true)
+  {
+    ele.classList.replace('is-invalid','is-valid');
+    ele.classList.replace('border-danger','border-success');
+    HiddenMessage(message);
+  }
+}
+function Validwrong(ele,message)
+{
+  if(ele.classList.contains('is-valid')==true)
+  {
+       ele.classList.replace('is-valid','is-invalid');
+      ele.classList.replace('border-success','border-danger');
+  }
+  showMessage(message);
+
 }
 
 
-// ^([1-9]{1}[0-9]{1}||100)$
+function showMessage(ele)
+{
+    if(ele.classList.contains('d-none')==true)
+    {
+      ele.classList.replace('d-none','d-block')
+    }
+
+}
+function HiddenMessage(ele)
+{
+    if(ele.classList.contains('d-block')==true)
+    {
+      ele.classList.replace('d-block','d-none')
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function regux(value,ele,message)
+{
+  let reg=value;
+  if(reg.test(ele.value)==true)
+  {
+    Validsuccess(ele,message);
+  }
+  else
+  {
+    Validwrong(ele,message);
+  }
+}
