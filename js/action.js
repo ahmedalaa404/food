@@ -1,5 +1,25 @@
 let Rows=$('#rowDisplay');
+let showDataSection=document.querySelector('.showData');
+let contactSection = document.querySelector('.contact');
 
+function showData()
+{
+  showDataSection.classList.replace('d-none','d-block')
+}
+function hiddenData()
+{
+  showDataSection.classList.replace('d-block','d-none')
+}
+
+
+function showContact()
+{
+  contactSection.classList.replace('d-none','d-block')
+}
+function hiddemContact()
+{
+  contactSection.classList.replace('d-block','d-none')
+}
 // to prevent the reload in the site when u click any link
 
 
@@ -57,21 +77,29 @@ $('.nav-links p a[typeShow]').click(
     if(goals.attr("typeShow")=="c")
     {
       responsData(``,"categories.php",displayCatigory);
-
+      hiddemContact();
+      showData()
     }
     else if(goals.attr("typeShow")=="a")
-    {
+    {   
       responsData("list.php?",`${goals.attr("typeShow")}=list`,displayArea);
+      hiddemContact();
+      showData()
+
     }
     else if(goals.attr("typeShow")=="i")
     {
       responsData("list.php?",`${goals.attr("typeShow")}=list`,displayIngredient);
+      hiddemContact();
+      showData()
     }
 
 
     else if(goals.attr("typeShow")=="ContactUs")
     {
-      contact()
+      hiddenData();
+      showContact();
+      contact();
     }
 
     }
@@ -230,18 +258,6 @@ if(value.meals[i].strType!=null)
 
 
 
-// let contacts = document.querySelector('.contact');
-// function displayContact()
-// {
-//   contacts.classList.replace('d-none','d-block') 
-//   Rows.fadeOut(1000);
-// }
-// function hiddenContact()
-// {
-//   contacts.classList.replace('d-block','d-none') 
-//   Rows.slideUp(1000);
-// }
-
 
 
 
@@ -265,10 +281,7 @@ let messageAge=document.querySelector('.inpAge+div');
 
 let inpRePassword=document.querySelector('.inpRePassword');
 let messageRepassowrd=document.querySelector('.inpRePassword+div');
-
-let allInputes=document.querySelectorAll('.contact input')
 let btnSend=document.querySelector('.send');
-console.log(btnSend)
 
 inpName.addEventListener('input',function()
 {
@@ -294,16 +307,17 @@ inpEmail.addEventListener('input',function()
 inpPassword.addEventListener('input',function()
 {
   regux(/^[a-z0-9]{8,20}$/,this,messagePassword);
+
   if(this.value==inpRePassword.value)
   {
     Validsuccess(inpRePassword,messageRepassowrd);
+
   }
   else
   {
     Validwrong(inpRePassword,messageRepassowrd);
   }
   checkbtn();
-  
 })
 
 
@@ -318,31 +332,29 @@ inpRePassword.addEventListener('input',function()
   if(this.value==inpPassword.value)
   {
     Validsuccess(this,messageRepassowrd);
+
   }
   else
   {
     Validwrong(this,messageRepassowrd);
   }
-  checkbtn();
-    
+        checkbtn();
 })
 
 function checkbtn()
 {
-  for(let i=0;i<allInputes.length;i++)
+  if(inpName.classList.contains('is-valid')==true&&
+  inpPhone.classList.contains('is-valid')==true
+  &&inpEmail.classList.contains('is-valid')==true 
+  &&inpPassword.classList.contains('is-valid')==true
+  &&inpAge.classList.contains('is-valid')==true
+  &&inpRePassword.classList.contains('is-valid')==true)
   {
-    let cont=0;
-    allInputes[i].addEventListener('input',function()
-    {
-      if(allInputes[i].classList.contains('is-valid')==true)
-      {
-        cont++;
-      }
-      if(cont==allInputes.length)
-      {
-        btnSend.disabled=false;
-      }
-    })
+    btnSend.removeAttribute('disabled');
+  }
+  else
+  {
+    btnSend.setAttribute('disabled','');
   }
 }
 
@@ -368,7 +380,6 @@ function Validwrong(ele,message)
 
 }
 
-
 function showMessage(ele)
 {
     if(ele.classList.contains('d-none')==true)
@@ -385,22 +396,6 @@ function HiddenMessage(ele)
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function regux(value,ele,message)
 {
