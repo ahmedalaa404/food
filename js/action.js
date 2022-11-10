@@ -1,6 +1,16 @@
 let Rows=$('#rowDisplay');
 let showDataSection=document.querySelector('.showData');
 let contactSection = document.querySelector('.contact');
+let searchSection=document.querySelector('.search')
+function showSearchSection()
+{
+  searchSection.classList.replace('d-none','d-block')
+  Rows.html("");
+}
+function hiddenSearchSection()
+{
+  searchSection.classList.replace('d-block','d-none')
+}
 
 function showData()
 {
@@ -74,16 +84,25 @@ $('.nav-links p a[typeShow]').click(
       event.preventDefault();
     });
     let goals = $(e.target);
+    if(goals.attr("typeShow")=="search")
+    { 
+      hiddemContact();
+      showSearchSection();
+      showData()
+    }
+
     if(goals.attr("typeShow")=="c")
     {
       responsData(``,"categories.php",displayCatigory);
       hiddemContact();
-      showData()
+      hiddenSearchSection();
+      showData();
     }
     else if(goals.attr("typeShow")=="a")
     {   
       responsData("list.php?",`${goals.attr("typeShow")}=list`,displayArea);
       hiddemContact();
+      hiddenSearchSection();
       showData()
 
     }
@@ -91,6 +110,7 @@ $('.nav-links p a[typeShow]').click(
     {
       responsData("list.php?",`${goals.attr("typeShow")}=list`,displayIngredient);
       hiddemContact();
+      hiddenSearchSection();
       showData()
     }
 
@@ -98,6 +118,7 @@ $('.nav-links p a[typeShow]').click(
     else if(goals.attr("typeShow")=="ContactUs")
     {
       hiddenData();
+      hiddenSearchSection();
       showContact();
       contact();
     }
@@ -351,10 +372,12 @@ function checkbtn()
   &&inpRePassword.classList.contains('is-valid')==true)
   {
     btnSend.removeAttribute('disabled');
+    btnSend.classList.replace('btn-outline-danger','btn-outline-success');
   }
   else
   {
     btnSend.setAttribute('disabled','');
+    btnSend.classList.replace('btn-outline-success','btn-outline-danger');
   }
 }
 
