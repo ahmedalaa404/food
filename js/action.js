@@ -4,8 +4,9 @@ let contactSection = document.querySelector('.contact');
 let searchSection=document.querySelector('.search')
 function showSearchSection()
 {
-  searchSection.classList.replace('d-none','d-block')
-  Rows.html("");
+  searchSection.classList.replace('d-none','d-block');
+  searchSite()
+
 }
 function hiddenSearchSection()
 {
@@ -54,25 +55,42 @@ let navs=$(".nav-site");
 let navbar=$(".nav");
 navbar.css('left',`-${navs.innerWidth()}px`)
 
-iconeOpen.click(
-    function()
+iconeOpen.click(changePositionNav)
+
+function searchSite()
+{
+  let searchChar=document.querySelector('#searchChar');
+  let searchName=document.querySelector('#searchName')
+  searchName.addEventListener('input',function(){searchInputes('s',this.value)})
+  searchChar.addEventListener('input',function(){searchInputes('f',this.value)})
+}
+
+function searchInputes(w,x)
+{
+  responsData(`search.php?${w}=`,x,)
+}
+
+
+// www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata
+// www.themealdb.com/api/json/v1/1/search.php?f=a
+
+
+function changePositionNav()
+{
+    iconeOpen.toggleClass('fa-xmark');
+    if(navbar.css('left')=='0px')
     {
-        iconeOpen.toggleClass('fa-xmark');
-        if(navbar.css('left')=='0px')
-        {
 
-            navbar.animate({left:`-${navs.innerWidth()}`},500);
-            $(".nav-links p").removeClass('animate__fadeInUpBig');
-            $(".nav-links p").css('animation-name','fadeOutDownBig');
-        }
-        else
-        {
-          $(".nav-links p").css('animation-name','fadeInUpBig');
-            navbar.animate({left:`0px`},500);
-        }
+        navbar.animate({left:`-${navs.innerWidth()}`},500);
+        $(".nav-links p").removeClass('animate__fadeInUpBig');
+        $(".nav-links p").css('animation-name','fadeOutDownBig');
     }
-)
-
+    else
+    {
+      $(".nav-links p").css('animation-name','fadeInUpBig');
+        navbar.animate({left:`0px`},500);
+    }
+}
 
 // end nav of aside 
 
@@ -122,7 +140,7 @@ $('.nav-links p a[typeShow]').click(
       showContact();
       contact();
     }
-
+    changePositionNav();
     }
 )
 // respons Data from Api 
