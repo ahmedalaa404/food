@@ -154,6 +154,10 @@ body
   {
     top: 0% !important;
   }
+  .w-fit-content
+  {
+    width: fit-content;
+  }
 
 @media only screen
 and (min-width: 10px) 
@@ -169,8 +173,19 @@ and (max-width: 700px)
     {
       margin-top: 10px;
     }
+    .contact .col-lg-12
+    {
+      flex-direction: column;
 
-
+    }
+    .contact .col-lg-12>div
+    {
+      width: 100% !important;
+    }
+    .contact .col-lg-12>div input
+    {
+      margin-top: 20px;
+    }
       body
     {
       background-color: red!important;

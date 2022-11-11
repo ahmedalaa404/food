@@ -222,7 +222,7 @@ if(value.meals[0].strTags!=undefined)
      splitTag=value.meals[0].strTags.split(",");
      for(let i=0;i<splitTag.length;i++)
      {
-       concatTag+=`<p class="bg-danger mx-1 p-1 rounded-1">${splitTag[i]}</p>`
+       concatTag+=`<p class="bg-danger mx-1 p-1 rounded-1 w-fit-content">${splitTag[i]}</p>`
      }
 }
         let xxx=new Map(Object.entries(dataRes.meals[0]));
