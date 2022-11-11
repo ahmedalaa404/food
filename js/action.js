@@ -248,11 +248,11 @@ if(value.meals[0].strTags!=undefined)
           ${concat}
                     </ul>
         <h3>tags :</h3>
-        <div class="d-flex">
+        <div class="d-flex flex-md-column flex-lg-row">
             ${concatTag}
         </div>
-        <a class="btn btn-danger" href='${value.meals[0].strYoutube}'target="_blank">Youtube</a>
-        <a  class="btn btn-success" href="${value.meals[0].strSource}" target="_blank">Source</a>
+        <a class="btn btn-danger my-1" href='${value.meals[0].strYoutube}'target="_blank">Youtube</a>
+        <a  class="btn btn-success my-1" href="${value.meals[0].strSource}" target="_blank">Source</a>
         </div>`;
   Rows.html(containerFood);
 }
