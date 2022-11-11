@@ -5,6 +5,7 @@ let searchSection=document.querySelector('.search')
 function showSearchSection()
 {
   searchSection.classList.replace('d-none','d-block');
+  Rows.html("");
   searchSite()
 
 }
